@@ -46,7 +46,6 @@ h1 {
 
 /* VIDEO */
 .video-box {
-    position: relative;
     margin: 40px 0;
     border-radius: 30px;
     overflow: hidden;
@@ -58,25 +57,31 @@ iframe {
     border: none;
 }
 
-/* SADECE VIDEO KARARMA */
-.video-overlay {
-    position: absolute;
+/* 🔥 TÜM EKRAN KARARMA */
+#fullscreenOverlay {
+    position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.75);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 48px;
+    font-size: 56px;
     font-weight: bold;
     opacity: 0;
-    transition: opacity 1s;
     pointer-events: none;
+    transition: opacity 1.5s;
+    z-index: 9999;
 }
 </style>
 </head>
 
 <body>
+
+<!-- 🔥 FULLSCREEN KARARMA -->
+<div id="fullscreenOverlay">
+    Seni Seviyorum ❤️
+</div>
 
 <div class="container">
 
@@ -95,7 +100,7 @@ iframe {
         <img src="photo.jpg" alt="Biz">
     </div>
 
-    <!-- 🔄 YAZI ARTIK VİDEODAN ÖNCE -->
+    <!-- 🔄 YAZI -->
     <div class="text-box">
         <p>🌸 Sudem,</p>
 
@@ -122,10 +127,6 @@ iframe {
             src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
             allow="autoplay">
         </iframe>
-
-        <div class="video-overlay" id="overlay">
-            Seni Seviyorum ❤️
-        </div>
     </div>
 
 </div>
@@ -133,12 +134,13 @@ iframe {
 <script>
 /*
 Google Drive video JS ile kontrol edilemediği için
-ortalama video süresine göre çalışır
+ortalama süre ile tetiklenir
 */
 setTimeout(() => {
-    document.getElementById("overlay").style.opacity = "1";
-}, 20000); // süreyi istersen değiştir
+    document.getElementById("fullscreenOverlay").style.opacity = "1";
+}, 20000); // video sürene göre ayarla
 </script>
 
 </body>
 </html>
+
