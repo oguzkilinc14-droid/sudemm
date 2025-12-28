@@ -11,16 +11,43 @@ body {
     background: linear-gradient(135deg, #ffd1e8, #fff5fa);
     color: #6b003f;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 900px;
     margin: auto;
     padding: 50px 20px;
+    display: none;
 }
 
 h1 {
     font-size: 48px;
+}
+
+/* HİKAYE BAŞLANGIÇ */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#intro h2 {
+    font-size: 36px;
+}
+#intro button {
+    margin-top: 30px;
+    padding: 18px 45px;
+    font-size: 20px;
+    border: none;
+    border-radius: 50px;
+    background: #ff5fa8;
+    color: white;
+    cursor: pointer;
 }
 
 /* FOTOĞRAF */
@@ -57,11 +84,11 @@ iframe {
     border: none;
 }
 
-/* 🔥 TÜM EKRAN KARARMA */
+/* KARARMA */
 #fullscreenOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.75);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,55 +98,68 @@ iframe {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.5s;
-    z-index: 9999;
+    z-index: 999;
+}
+
+/* DAKTİLO */
+.type {
+    border-right: 2px solid #6b003f;
+    padding-right: 5px;
+}
+
+/* UÇUŞAN KALPLER */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: fly 8s linear infinite;
+    opacity: 0.7;
+}
+@keyframes fly {
+    from { transform: translateY(0); }
+    to { transform: translateY(-110vh); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- FULLSCREEN KARARMA -->
+<!-- HİKAYE BAŞLANGIÇ -->
+<div id="intro">
+    <h2>Sana bi süprizim var 💖</h2>
+    <button onclick="startStory()">Başla</button>
+</div>
+
+<!-- KARARMA -->
 <div id="fullscreenOverlay">
     Seni Seviyorum ❤️
 </div>
 
-<!-- MÜZİK -->
-<audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<div class="container">
+<div class="container" id="content">
 
     <h1>Sudem 💕</h1>
-    <p>Mia & Sebastian’s Theme eşliğinde…</p>
+    <p>Çok sevdiğin bir müzik eşliğinde...</p>
+
+    <!-- MÜZİK -->
+    <div style="margin: 30px 0;">
+        <audio controls>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
     <!-- FOTOĞRAF -->
     <div class="photo-box">
         <img src="photo.jpg" alt="Biz">
     </div>
 
-    <!-- YAZI -->
+    <!-- YAZI (DAKTİLO) -->
     <div class="text-box">
-        <p>🌸 Sudem,</p>
-        <p>
-            Hayatıma girdiğin günden beri her şey daha güzel.  
-            Seninle geçen her an kalbimde özel bir yer edindi 💞
-        </p>
-        <p>
-            <strong>Seni çok seviyorum</strong> 💖  
-            Ve ne olursa olsun  
-            <strong>seni asla bırakmayacağım</strong> 🤍
-        </p>
-        <p>
-            Bu site sadece sana…  
-            Kalbim gibi 💗
-        </p>
+        <p class="type" id="typeText"></p>
     </div>
 
     <!-- VIDEO -->
     <div class="video-box">
         <iframe
-            id="videoFrame"
             src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
             allow="autoplay">
         </iframe>
@@ -128,36 +168,56 @@ iframe {
 </div>
 
 <script>
-const music = document.getElementById("music");
-const video = document.getElementById("videoFrame");
-const overlay = document.getElementById("fullscreenOverlay");
+/* DAKTİLO METNİ */
+const text = `🌸 Sevgilim,
 
-let overlayTimerStarted = false;
+Hayatıma girdiğin günden beri çok değiştim beni çok geliştirdin,
+beni daha iyi bir adam olmamı sağladın ve her zaman yanımda oldun.Hayatının çok zor olmasına rağmen
+asla pes etmedin bu ilişki ve benim için hep cabaladın ve çabalamaya devam ediyosun.Bunların hepsi 
+senin ne kadar doğru bi insan olduğunu,senin benim geleceğim olduğunu bana gösterdi.Evet zor zamanlarımız oluyo ve
+daha zor zamanlarımız da olucak ama ben hep yanında olucam herşeyi beraber atlıcaz, bazen üzülücez belki ama onuda 
+beraber yapıcaz.
 
-/* Sayfa açılınca müzik başlasın */
-window.addEventListener("click", () => {
-    if (music.paused) {
-        music.volume = 0.6;
-        music.play();
+Seni çok seviyorum 💖
+Ve ne olursa olsun seni asla bırakmayacağım 🤍 Yılbaşın kutlu olsun beraber geçireceğimiz nice yıllara.
+
+Bu site sadece sana…
+
+
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("typeText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
     }
-}, { once: true });
+}
 
-/* Videoya girince */
-video.addEventListener("mouseenter", () => {
-    music.pause();
+/* HİKAYE BAŞLAT */
+function startStory() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("content").style.display = "block";
+    typeWriter();
+    startHearts();
+}
 
-    if (!overlayTimerStarted) {
-        overlayTimerStarted = true;
-        setTimeout(() => {
-            overlay.style.opacity = "1";
-        }, 20000); // 🔥 videoya başladıktan 20 sn sonra
-    }
-});
+/* UÇUŞAN KALPLER */
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 500);
+}
 
-/* Videodan çıkınca */
-video.addEventListener("mouseleave", () => {
-    music.play();
-});
+/* KARARMA */
+setTimeout(() => {
+    document.getElementById("fullscreenOverlay").style.opacity = "1";
+}, 20000);
 </script>
 
 </body>
