@@ -25,7 +25,7 @@ h1 {
     font-size: 48px;
 }
 
-/* HİKAYE BAŞLANGIÇ */
+/* HİKAYE */
 #intro {
     position: fixed;
     inset: 0;
@@ -84,11 +84,11 @@ iframe {
     border: none;
 }
 
-/* KARARMA */
+/* FULLSCREEN KARARMA */
 #fullscreenOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,7 +107,7 @@ iframe {
     padding-right: 5px;
 }
 
-/* UÇUŞAN KALPLER */
+/* KALPLER */
 .heart {
     position: fixed;
     bottom: -20px;
@@ -131,7 +131,7 @@ iframe {
 </div>
 
 <!-- KARARMA -->
-<div id="fullscreenOverlay">
+<div id="fullscreenOverlay" onclick="removeOverlay()">
     Seni Seviyorum ❤️
 </div>
 
@@ -158,7 +158,7 @@ iframe {
     </div>
 
     <!-- VIDEO -->
-    <div class="video-box">
+    <div class="video-box" id="videoBox">
         <iframe
             src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
             allow="autoplay">
@@ -171,25 +171,11 @@ iframe {
 /* DAKTİLO METNİ */
 const text = `🌸 Sevgilim,
 
-Hayatıma girdiğin günden beri çok değiştim.
-Beni çok geliştirdin, daha iyi bir insan olmamı sağladın
-ve her zaman yanımda oldun.
+Hayatıma girdiğin günden beri her şey değişti.
+Seninle her an daha anlamlı.
 
-Hayatının ne kadar zor olduğunu biliyorum ama
-asla pes etmedin.
-Bu ilişki için, benim için hep çabaladın.
-
-Zor zamanlarımız oldu, daha da olacak belki
-ama ben hep yanında olacağım.
-Her şeyi birlikte aşacağız.
-
-Seni çok seviyorum 💖  
-Ve ne olursa olsun seni asla bırakmayacağım 🤍  
-
-Yılbaşın kutlu olsun 🎄  
-Birlikte geçireceğimiz nice yıllara…
-
-Bu site sadece sana 💗
+Seni çok seviyorum 💖
+Ve ne olursa olsun seni asla bırakmayacağım 🤍
 `;
 
 let i = 0;
@@ -202,7 +188,7 @@ function typeWriter() {
     }
 }
 
-/* HİKAYE BAŞLAT */
+/* HİKAYE */
 function startStory() {
     document.getElementById("intro").style.display = "none";
     document.getElementById("content").style.display = "block";
@@ -210,7 +196,7 @@ function startStory() {
     startHearts();
 }
 
-/* UÇUŞAN KALPLER */
+/* KALPLER */
 function startHearts() {
     setInterval(() => {
         const heart = document.createElement("div");
@@ -222,10 +208,26 @@ function startHearts() {
     }, 500);
 }
 
-/* KARARMA – 20 SN */
-setTimeout(() => {
-    document.getElementById("fullscreenOverlay").style.opacity = "1";
-}, 20000);
+/* 🎬 VIDEOYA TIKLANINCA 22 SN SONRA KARARMA */
+let overlayTimerStarted = false;
+
+document.getElementById("videoBox").addEventListener("click", () => {
+    if (!overlayTimerStarted) {
+        overlayTimerStarted = true;
+        setTimeout(() => {
+            const overlay = document.getElementById("fullscreenOverlay");
+            overlay.style.opacity = "1";
+            overlay.style.pointerEvents = "auto";
+        }, 22000); // ⏱️ 22 saniye
+    }
+});
+
+/* 🖱️ EKRANA BASINCA KARARTI GİTSİN */
+function removeOverlay() {
+    const overlay = document.getElementById("fullscreenOverlay");
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+}
 </script>
 
 </body>
