@@ -23,6 +23,7 @@ h1 {
     font-size: 48px;
 }
 
+/* MÜZİK BUTONU */
 .music-btn {
     background: #ff5fa8;
     color: white;
@@ -54,6 +55,7 @@ h1 {
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    cursor: pointer;
 }
 iframe {
     width: 100%;
@@ -61,6 +63,7 @@ iframe {
     border: none;
 }
 
+/* METİN */
 .text-box {
     background: rgba(255,255,255,0.9);
     padding: 40px;
@@ -69,11 +72,11 @@ iframe {
     line-height: 2;
 }
 
-/* KARARMA */
+/* KARARMA EKRANI */
 #overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.75);
     display: none;
     align-items: center;
     justify-content: center;
@@ -83,16 +86,24 @@ iframe {
 #overlay h2 {
     color: white;
     font-size: 48px;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- MÜZİK -->
-<audio id="bgMusic" src="music.mp3"></audio>
+<!-- 🎵 ARKA PLAN MÜZİĞİ -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<!-- KARARMA -->
+<!-- 🌑 KARARMA -->
 <div id="overlay">
     <h2>Seni seviyorum 💖</h2>
 </div>
@@ -106,19 +117,20 @@ iframe {
         🎵 Müziği Başlat
     </button>
 
-    <!-- FOTOĞRAF -->
+    <!-- 📸 FOTOĞRAF -->
     <div class="photo-box">
         <img src="photo.jpg" alt="Biz">
     </div>
 
-    <!-- VIDEO -->
-    <div class="video-box">
+    <!-- 🎬 VIDEO -->
+    <div class="video-box" onclick="showOverlay()">
         <iframe
             src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
             allow="autoplay">
         </iframe>
     </div>
 
+    <!-- 💌 METİN -->
     <div class="text-box">
         <p>🌸 Sudem,</p>
 
@@ -145,12 +157,17 @@ iframe {
 function playMusic() {
     const music = document.getElementById("bgMusic");
     music.volume = 0.6;
-
-    music.play().catch(err => {
-        alert("Müzik tarayıcı tarafından engellendi. Tekrar tıkla 💖");
-        console.log(err);
-    });
+    music.play();
 }
+
+function showOverlay() {
+    document.getElementById("overlay").style.display = "flex";
+}
+
+// Kararma ekranına tıklayınca kapansın
+document.getElementById("overlay").addEventListener("click", function () {
+    this.style.display = "none";
+});
 </script>
 
 </body>
