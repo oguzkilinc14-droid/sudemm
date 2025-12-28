@@ -154,17 +154,16 @@ iframe {
 </div>
 
 <script>
-    function playMusic() {
-        const music = document.getElementById("bgMusic");
+function playMusic() {
+    const music = document.getElementById("bgMusic");
 
-        music.muted = false;
-        music.volume = 1;
+    music.volume = 1;
+    music.currentTime = 0;
 
-        music.play().catch(() => {
-            alert("🎵 Müzik başlatmak için butona tekrar tıkla ❤️");
-        });
-    }
+    music.play();
+}
 </script>
+
 
 
 </body>
