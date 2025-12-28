@@ -11,25 +11,41 @@ body {
     background: linear-gradient(135deg, #ffd1e8, #fff5fa);
     color: #6b003f;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 900px;
     margin: auto;
     padding: 50px 20px;
+    display: none;
 }
 
-h1 {
-    font-size: 48px;
+/* BAŞLANGIÇ EKRANI */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#intro button {
+    padding: 20px 50px;
+    border-radius: 50px;
+    border: none;
+    font-size: 22px;
+    background: #ff5fa8;
+    color: white;
+    cursor: pointer;
 }
 
 /* FOTOĞRAF */
-.photo-box {
-    margin: 40px auto;
-    max-width: 500px;
-}
 .photo-box img {
     width: 100%;
+    max-width: 500px;
     border-radius: 30px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
@@ -45,102 +61,123 @@ h1 {
 }
 
 /* VIDEO */
-.video-box {
-    margin: 40px 0;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-}
-iframe {
+.video-box iframe {
     width: 100%;
     height: 500px;
+    border-radius: 30px;
     border: none;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
 }
 
-/* 🔥 TÜM EKRAN KARARMA */
-#fullscreenOverlay {
+/* FULLSCREEN FINAL */
+#finalOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.85);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     font-size: 56px;
-    font-weight: bold;
+    color: white;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1.5s;
-    z-index: 9999;
+    transition: opacity 2s;
+    z-index: 999;
+}
+
+/* DAKTİLO */
+.type {
+    border-right: 2px solid #6b003f;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+/* KALPLER */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: float 8s linear infinite;
+    opacity: 0.7;
+}
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-110vh); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 FULLSCREEN KARARMA -->
-<div id="fullscreenOverlay">
-    Seni Seviyorum ❤️
+<!-- BAŞLANGIÇ -->
+<div id="intro">
+    <h1>Sana özel bir şey var 💖</h1>
+    <button onclick="start()">Hazırım</button>
 </div>
 
-<div class="container">
+<!-- FINAL -->
+<div id="finalOverlay">Seni Seviyorum ❤️</div>
+
+<audio id="music">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="content">
 
     <h1>Sudem 💕</h1>
-    <p>Mia & Sebastian’s Theme eşliğinde…</p>
 
-    <!-- 🎵 MÜZİK -->
-    <div style="margin: 30px 0;">
-        <audio controls>
-            <source src="music.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <!-- FOTOĞRAF -->
     <div class="photo-box">
-        <img src="photo.jpg" alt="Biz">
+        <img src="photo.jpg">
     </div>
 
-    <!-- 🔄 YAZI -->
     <div class="text-box">
-        <p>🌸 Sudem,</p>
-
-        <p>
-            Hayatıma girdiğin günden beri her şey daha güzel.  
-            Seninle geçen her an kalbimde özel bir yer edindi 💞
-        </p>
-
-        <p>
-            <strong>Seni çok seviyorum</strong> 💖  
-            Ve ne olursa olsun  
-            <strong>seni asla bırakmayacağım</strong> 🤍
-        </p>
-
-        <p>
-            Bu site sadece sana…  
-            Kalbim gibi 💗
-        </p>
+        <p class="type" id="typeText"></p>
     </div>
 
-    <!-- VIDEO -->
     <div class="video-box">
-        <iframe
-            src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
-            allow="autoplay">
-        </iframe>
+        <iframe src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview" allow="autoplay"></iframe>
     </div>
 
 </div>
 
 <script>
-/*
-Google Drive video JS ile kontrol edilemediği için
-ortalama süre ile tetiklenir
-*/
-setTimeout(() => {
-    document.getElementById("fullscreenOverlay").style.opacity = "1";
-}, 20000); // video sürene göre ayarla
+const text = "Seni tanıdığım günden beri kalbimde eksilmeyen bir şey var… Bu site, o hissin küçük bir parçası 💖";
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("typeText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 70);
+    }
+}
+
+function start() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("content").style.display = "block";
+    document.getElementById("music").play();
+    typeWriter();
+    hearts();
+    setTimeout(finale, 22000);
+}
+
+function finale() {
+    document.getElementById("finalOverlay").style.opacity = "1";
+}
+
+function hearts() {
+    setInterval(() => {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = "💖";
+        h.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+    }, 500);
+}
 </script>
 
 </body>
 </html>
+
 
