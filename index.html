@@ -124,9 +124,9 @@ iframe {
 
 <body>
 
-<!-- HİKAYE BAŞLANGIÇ -->
+<!-- HİKAYE -->
 <div id="intro">
-    <h2>Sana bi süprizim var 💖</h2>
+    <h2>Sana bir sürprizim var 💖</h2>
     <button onclick="startStory()">Başla</button>
 </div>
 
@@ -142,7 +142,7 @@ iframe {
 
     <!-- MÜZİK -->
     <div style="margin: 30px 0;">
-        <audio controls>
+        <audio id="music" controls loop>
             <source src="music.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -152,7 +152,7 @@ iframe {
         <img src="photo.jpg" alt="Biz">
     </div>
 
-    <!-- YAZI (DAKTİLO) -->
+    <!-- YAZI -->
     <div class="text-box">
         <p class="type" id="typeText"></p>
     </div>
@@ -171,18 +171,26 @@ iframe {
 /* DAKTİLO METNİ */
 const text = `🌸 Sevgilim,
 
-Hayatıma girdiğin günden beri çok değiştim beni çok geliştirdin,
-beni daha iyi bir adam olmamı sağladın ve her zaman yanımda oldun.Hayatının çok zor olmasına rağmen
-asla pes etmedin bu ilişki ve benim için hep cabaladın ve çabalamaya devam ediyosun.Bunların hepsi 
-senin ne kadar doğru bi insan olduğunu,senin benim geleceğim olduğunu bana gösterdi.Evet zor zamanlarımız oluyo ve
-daha zor zamanlarımız da olucak ama ben hep yanında olucam herşeyi beraber atlıcaz, bazen üzülücez belki ama onuda 
-beraber yapıcaz.
+Hayatıma girdiğin günden beri çok değiştim.
+Beni çok geliştirdin, daha iyi bir insan olmamı sağladın
+ve her zaman yanımda oldun.
 
-Seni çok seviyorum 💖
-Ve ne olursa olsun seni asla bırakmayacağım 🤍 Yılbaşın kutlu olsun beraber geçireceğimiz nice yıllara.
+Hayatının ne kadar zor olduğunu biliyorum ama
+asla pes etmedin.
+Bu ilişki için, benim için hep çabaladın.
 
-Bu site sadece sana…
+Zor zamanlarımız oldu, daha da olacak belki
+ama ben hep yanında olacağım.
+Her şeyi birlikte aşacağız.
 
+Seni çok seviyorum 💖  
+Ve ne olursa olsun seni asla bırakmayacağım 🤍  
+
+Yılbaşın kutlu olsun 🎄  
+Birlikte geçireceğimiz nice yıllara…
+
+Bu site sadece sana 💗
+`;
 
 let i = 0;
 
@@ -214,7 +222,7 @@ function startHearts() {
     }, 500);
 }
 
-/* KARARMA */
+/* KARARMA – 20 SN */
 setTimeout(() => {
     document.getElementById("fullscreenOverlay").style.opacity = "1";
 }, 20000);
