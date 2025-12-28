@@ -7,33 +7,52 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f6c1d1;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffd1e8, #fff5fa);
+    color: #6b003f;
     text-align: center;
 }
 
 .container {
-    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    padding: 50px 20px;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    background: #ff5c8a;
-    color: white;
-    cursor: pointer;
+h1 {
+    font-size: 48px;
 }
 
-button:hover {
-    background: #ff3f73;
+/* FOTOĞRAF */
+.photo-box {
+    margin: 40px auto;
+    max-width: 500px;
 }
-
 .photo-box img {
-    width: 300px;
-    border-radius: 20px;
-    margin-top: 30px;
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* VIDEO */
+.video-box {
+    margin: 40px 0;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+.text-box {
+    background: rgba(255,255,255,0.9);
+    padding: 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    line-height: 2;
 }
 </style>
 </head>
@@ -41,32 +60,52 @@ button:hover {
 <body>
 
 <div class="container">
-    <h1>Sudem 💖</h1>
-    <p>Mia & Sebastian's Theme eşliğinde...</p>
 
-    <button onclick="playMusic()">🎵 Müziği Başlat</button>
+    <h1>Sudem 💕</h1>
+    <p>Mia & Sebastian’s Theme eşliğinde…</p>
 
-    <br><br>
+    <!-- 🎵 MÜZİK (KESİN ÇALIŞIR) -->
+    <div style="margin: 30px 0;">
+        <audio controls>
+            <source src="music.mp3" type="audio/mpeg">
+            Tarayıcın müziği desteklemiyor.
+        </audio>
+    </div>
 
-    <!-- SES KONTROLÜ (ÖNEMLİ) -->
-    <audio id="bgMusic" controls>
-        <source src="music.mp3" type="audio/mpeg">
-        Tarayıcı ses dosyasını desteklemiyor.
-    </audio>
-
+    <!-- FOTOĞRAF -->
     <div class="photo-box">
         <img src="photo.jpg" alt="Biz">
     </div>
-</div>
 
-<script>
-function playMusic() {
-    const music = document.getElementById("bgMusic");
-    music.play().catch(e => {
-        alert("Tarayıcı müziği engelledi, alttaki oynatıcıdan başlat 💖");
-    });
-}
-</script>
+    <!-- VIDEO -->
+    <div class="video-box">
+        <iframe
+            src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
+            allow="autoplay">
+        </iframe>
+    </div>
+
+    <div class="text-box">
+        <p>🌸 Sudem,</p>
+
+        <p>
+            Hayatıma girdiğin günden beri her şey daha güzel.  
+            Seninle geçen her an kalbimde özel bir yer edindi 💞
+        </p>
+
+        <p>
+            <strong>Seni çok seviyorum</strong> 💖  
+            Ve ne olursa olsun  
+            <strong>seni asla bırakmayacağım</strong> 🤍
+        </p>
+
+        <p>
+            Bu site sadece sana…  
+            Kalbim gibi 💗
+        </p>
+    </div>
+
+</div>
 
 </body>
 </html>
