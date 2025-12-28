@@ -36,6 +36,7 @@ h1 {
 
 /* VIDEO */
 .video-box {
+    position: relative;
     margin: 40px 0;
     border-radius: 30px;
     overflow: hidden;
@@ -47,12 +48,30 @@ iframe {
     border: none;
 }
 
+/* KARARMA + YAZI */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 1s;
+    pointer-events: none;
+}
+
+/* YAZI */
 .text-box {
     background: rgba(255,255,255,0.9);
     padding: 40px;
     border-radius: 30px;
     font-size: 18px;
     line-height: 2;
+    margin-top: 40px;
 }
 </style>
 </head>
@@ -64,11 +83,10 @@ iframe {
     <h1>Sudem 💕</h1>
     <p>Mia & Sebastian’s Theme eşliğinde…</p>
 
-    <!-- 🎵 MÜZİK (KESİN ÇALIŞIR) -->
+    <!-- 🎵 MÜZİK -->
     <div style="margin: 30px 0;">
         <audio controls>
             <source src="music.mp3" type="audio/mpeg">
-            Tarayıcın müziği desteklemiyor.
         </audio>
     </div>
 
@@ -79,12 +97,17 @@ iframe {
 
     <!-- VIDEO -->
     <div class="video-box">
-        <iframe
+        <iframe id="video"
             src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
             allow="autoplay">
         </iframe>
+
+        <div class="overlay" id="overlay">
+            Seni Seviyorum ❤️
+        </div>
     </div>
 
+    <!-- YAZI (ARTIK VİDEODAN SONRA) -->
     <div class="text-box">
         <p>🌸 Sudem,</p>
 
@@ -106,6 +129,16 @@ iframe {
     </div>
 
 </div>
+
+<script>
+/* Google Drive video kontrolü için zamanlayıcı */
+let overlay = document.getElementById("overlay");
+let videoEnded = false;
+
+setTimeout(() => {
+    overlay.style.opacity = "1";
+}, 20000); // video ortalama süresine göre ayarlanabilir
+</script>
 
 </body>
 </html>
