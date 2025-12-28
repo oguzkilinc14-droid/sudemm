@@ -34,6 +34,16 @@ h1 {
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
+/* YAZI */
+.text-box {
+    background: rgba(255,255,255,0.9);
+    padding: 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    line-height: 2;
+    margin: 40px 0;
+}
+
 /* VIDEO */
 .video-box {
     position: relative;
@@ -48,30 +58,20 @@ iframe {
     border: none;
 }
 
-/* KARARMA + YAZI */
-.overlay {
+/* SADECE VIDEO KARARMA */
+.video-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.65);
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 48px;
+    justify-content: center;
     color: white;
+    font-size: 48px;
     font-weight: bold;
     opacity: 0;
     transition: opacity 1s;
     pointer-events: none;
-}
-
-/* YAZI */
-.text-box {
-    background: rgba(255,255,255,0.9);
-    padding: 40px;
-    border-radius: 30px;
-    font-size: 18px;
-    line-height: 2;
-    margin-top: 40px;
 }
 </style>
 </head>
@@ -95,19 +95,7 @@ iframe {
         <img src="photo.jpg" alt="Biz">
     </div>
 
-    <!-- VIDEO -->
-    <div class="video-box">
-        <iframe id="video"
-            src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
-            allow="autoplay">
-        </iframe>
-
-        <div class="overlay" id="overlay">
-            Seni Seviyorum ❤️
-        </div>
-    </div>
-
-    <!-- YAZI (ARTIK VİDEODAN SONRA) -->
+    <!-- 🔄 YAZI ARTIK VİDEODAN ÖNCE -->
     <div class="text-box">
         <p>🌸 Sudem,</p>
 
@@ -128,16 +116,28 @@ iframe {
         </p>
     </div>
 
+    <!-- VIDEO -->
+    <div class="video-box">
+        <iframe
+            src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
+            allow="autoplay">
+        </iframe>
+
+        <div class="video-overlay" id="overlay">
+            Seni Seviyorum ❤️
+        </div>
+    </div>
+
 </div>
 
 <script>
-/* Google Drive video kontrolü için zamanlayıcı */
-let overlay = document.getElementById("overlay");
-let videoEnded = false;
-
+/*
+Google Drive video JS ile kontrol edilemediği için
+ortalama video süresine göre çalışır
+*/
 setTimeout(() => {
-    overlay.style.opacity = "1";
-}, 20000); // video ortalama süresine göre ayarlanabilir
+    document.getElementById("overlay").style.opacity = "1";
+}, 20000); // süreyi istersen değiştir
 </script>
 
 </body>
