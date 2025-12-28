@@ -74,14 +74,11 @@ h1 {
 /* VIDEO */
 .video-box {
     margin: 40px 0;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
 }
-iframe {
+video {
     width: 100%;
-    height: 500px;
-    border: none;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
 }
 
 /* FULLSCREEN KARARMA */
@@ -157,12 +154,12 @@ iframe {
         <p class="type" id="typeText"></p>
     </div>
 
-    <!-- VIDEO -->
-    <div class="video-box" id="videoBox">
-        <iframe
-            src="https://drive.google.com/file/d/1zmvMox-4bFs8YZioepWnD_rU-X1n2nO5/preview"
-            allow="autoplay">
-        </iframe>
+    <!-- VIDEO (DOSYA) -->
+    <div class="video-box">
+        <video id="video" controls>
+            <source src="video.mp4" type="video/mp4">
+            Tarayıcın videoyu desteklemiyor.
+        </video>
     </div>
 
 </div>
@@ -171,15 +168,28 @@ iframe {
 /* DAKTİLO METNİ */
 const text = `🌸 Sevgilim,
 
-Hayatıma girdiğin günden beri her şey değişti.
-Seninle her an daha anlamlı.
+Hayatıma girdiğin günden beri çok değiştim.
+Beni çok geliştirdin, daha iyi bir insan olmamı sağladın
+ve her zaman yanımda oldun.
 
-Seni çok seviyorum 💖
-Ve ne olursa olsun seni asla bırakmayacağım 🤍
+Hayatının ne kadar zor olduğunu biliyorum ama
+asla pes etmedin.
+Bu ilişki için, benim için hep çabaladın.
+
+Zor zamanlarımız oldu, daha da olacak belki
+ama ben hep yanında olacağım.
+Her şeyi birlikte aşacağız.
+
+Seni çok seviyorum 💖  
+Ve ne olursa olsun seni asla bırakmayacağım 🤍  
+
+Yılbaşın kutlu olsun 🎄  
+Birlikte geçireceğimiz nice yıllara…
+
+Bu site sadece sana 💗
 `;
 
 let i = 0;
-
 function typeWriter() {
     if (i < text.length) {
         document.getElementById("typeText").innerHTML += text.charAt(i);
@@ -208,23 +218,31 @@ function startHearts() {
     }, 500);
 }
 
-/* 🎬 VIDEOYA TIKLANINCA 22 SN SONRA KARARMA */
-let overlayTimerStarted = false;
+/* VIDEO + MÜZİK + KARARMA */
+const video = document.getElementById("video");
+const music = document.getElementById("music");
+const overlay = document.getElementById("fullscreenOverlay");
 
-document.getElementById("videoBox").addEventListener("click", () => {
-    if (!overlayTimerStarted) {
-        overlayTimerStarted = true;
-        setTimeout(() => {
-            const overlay = document.getElementById("fullscreenOverlay");
-            overlay.style.opacity = "1";
-            overlay.style.pointerEvents = "auto";
-        }, 22000); // ⏱️ 22 saniye
-    }
+let overlayTimer;
+
+/* Video başlayınca */
+video.addEventListener("play", () => {
+    music.pause();
+
+    overlayTimer = setTimeout(() => {
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "auto";
+    }, 22000); // 22 saniye
 });
 
-/* 🖱️ EKRANA BASINCA KARARTI GİTSİN */
+/* Video durunca */
+video.addEventListener("pause", () => {
+    music.play();
+    clearTimeout(overlayTimer);
+});
+
+/* Karartıyı kapat */
 function removeOverlay() {
-    const overlay = document.getElementById("fullscreenOverlay");
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
 }
