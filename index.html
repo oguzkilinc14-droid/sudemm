@@ -154,21 +154,18 @@ iframe {
 </div>
 
 <script>
-function playMusic() {
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.6;
-    music.play();
-}
+    function playMusic() {
+        const music = document.getElementById("bgMusic");
 
-function showOverlay() {
-    document.getElementById("overlay").style.display = "flex";
-}
+        music.muted = false;
+        music.volume = 1;
 
-// Kararma ekranına tıklayınca kapansın
-document.getElementById("overlay").addEventListener("click", function () {
-    this.style.display = "none";
-});
+        music.play().catch(() => {
+            alert("🎵 Müzik başlatmak için butona tekrar tıkla ❤️");
+        });
+    }
 </script>
+
 
 </body>
 </html>
